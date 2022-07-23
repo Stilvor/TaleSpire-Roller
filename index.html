@@ -1,0 +1,319 @@
+<html>
+<head><title>PF2 Dice Roller for TaleSpire</title></head>
+<style>
+div {border:solid thin black; margin: 0.5em; padding: 0.5em; border-radius: 1em; background: grey; overflow: hidden;}
+
+h1 {text-align: center;}
+p {text-align: center;}
+
+.text-center {
+  text-align: center;
+}
+.column {
+float: left;
+}
+.left {
+width: 46%
+}
+.right {
+width: 46%;
+}
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+label {font-size: 26px}
+button {
+  background-color: #1c87c9;
+  border: none;
+  color: black;
+  padding: 8px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.divided {
+  display: flex;
+  align-items: center;
+}
+
+.divider {
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+  margin: 5px
+}
+
+</style>
+<body onload="Loadsaves()" style="background-color:6238AB;">
+<h1 style="color: #5e9ca0;">PF2 </span><span style="color: #2b2301;">Dice Roller</span> for TaleSpire</h1>
+<div class="column left">
+  <label style="font-size: 22px;">Roll Name:</label>  
+<input type="text" name="dice_name" id="dice_name" class="form-control" value="">
+<button type="button" style="  font-size: 16px; margin: 2px 1px; padding: 4px 9px;" id="button_dice_name" onClick="Nameroll();">Add Name</button><br>
+
+<p class="divided"><span></span><span class="divider"></span><span></span></p><br>
+
+<label>Dice Roll:&nbsp;&nbsp;</label><label style="color: #62CD2F;" id="dice_roll"></label><br><br>
+<button style="background-color:#EAEE0F;" type="button" value="1D4" id="1d4" onClick="Dice(4)">1D4</button>
+<button style="background-color:#CC0FEE;" type="button" value="1D6" id="1d6" onClick="Dice(6)">1D6</button>
+<button style="background-color:#ED7408;" type="button" value="1D8" id="1d8" onClick="Dice(8)">1D8</button>
+<button style="background-color:#155010;" type="button" value="1D10" id="1d10" onClick="Dice(10)">1D10</button>
+<button style="background-color:#183ECB;" type="button" value="1D12" id="1d12" onClick="Dice(12)">1D12</button>
+<button style="background-color:#C2183F;" type="button" value="1D20" id="1d20" onClick="Dice(20)">1D20</button>
+<button style="background-color:#1FDBD8;" type="button" value="1D100" id="1d100" onClick="Dice(100)">1D100</button><Label style="font-size: 18px;">*</Label><br>
+<Label style="font-size: 18px;">* D100s roll as 1D100+1D10 in TaleSpire</Lable><br>
+
+<p class="divided"><span></span><span class="divider"></span><span></span></p>
+
+  <label>Modifier:&nbsp;&nbsp;</label><label style="color: #62CD2F" id="dice_modifier"></label><br><br>
+  <label id="dice_modifier_math">Values:&nbsp;&nbsp;</label><br><br>
+<button style="background-color: #06ED92" type="button" value="+1" id="m1" onClick="Modify(this.value)">+1</button>
+<button style="background-color: #06ED92"type="button" value="+2" id="m2" onClick="Modify(this.value)">+2</button>
+<button style="background-color: #06ED92"type="button" value="+3" id="m3" onClick="Modify(this.value)">+3</button>
+<button style="background-color: #06ED92"type="button" value="+4" id="m4" onClick="Modify(this.value)">+4</button>
+<button style="background-color: #06ED92"type="button" value="+5" id="m5" onClick="Modify(this.value)">+5</button>
+<button style="background-color: #06ED92"type="button" value="+6" id="m6" onClick="Modify(this.value)">+6</button>
+<button style="background-color: #06ED92"type="button" value="+7" id="m7" onClick="Modify(this.value)">+7</button>
+<button style="background-color: #06ED92"type="button" value="+8" id="m8" onClick="Modify(this.value)">+8</button>
+<button style="background-color: #06ED92"type="button" value="+9" id="m9" onClick="Modify(this.value)">+9</button>
+<button style="background-color: #06ED92"type="button" value="+10" id="m10" onClick="Modify(this.value)">+10</button><br>
+<button style="background-color: #ED1106" type="button" value="-1" id="mm1" onClick="Modify(this.value)">-1</button>
+<button style="background-color: #ED1106" type="button" value="-2" id="mm2" onClick="Modify(this.value)">-2</button>
+<button style="background-color: #ED1106" type="button" value="-3" id="mm3" onClick="Modify(this.value)">-3</button>
+<button style="background-color: #ED1106" type="button" value="-4" id="mm4" onClick="Modify(this.value)">-4</button>
+<button style="background-color: #ED1106" type="button" value="-5" id="mm5" onClick="Modify(this.value)">-5</button>
+<button style="background-color: #ED1106" type="button" value="-6" id="mm6" onClick="Modify(this.value)">-6</button>
+<button style="background-color: #ED1106" type="button" value="-7" id="mm7" onClick="Modify(this.value)">-7</button>
+<button style="background-color: #ED1106" type="button" value="-8" id="mm8" onClick="Modify(this.value)">-8</button>
+<button style="background-color: #ED1106" type="button" value="-9" id="mm9" onClick="Modify(this.value)">-9</button>
+<button style="background-color: #ED1106" type="button" value="-10" id="mm10" onClick="Modify(this.value)">-10</button>
+
+<p class="divided"><span></span><span class="divider"></span><span></span></p>
+
+  <label>talespire://dice/ </label>
+  <label name="dice_url_name" id="dice_url_name"></label>
+  <label name="dice_url_dice" id="dice_url_dice"></label>
+  <label name="dice_url_mod"  id="dice_url_mod"></label><br><br>
+  <button type="button" id="url_submit" onClick="Rollin()" >Roll in TaleSpire</button>    
+  <button style="background-color: #ED06C3; float: right;" "type="button" id="reset_first" onClick="reset()">Reset</button><br>
+</div>
+<div class="column right">
+  <label style="font-size: 26px; display: block; text-align: center;">Combine & Save Rolls</label><br> 
+  
+  <button type="button" id="url_combine_first" onClick="Combinefirst();reset()" >Combine</button><br><br>
+  
+  <input type="text" style="width:400px" name="dice_url_ts" id="dice_url_ts" class="form-control" value="">
+  <button style="background-color: #7DCD28"type="button" id="url_combine_submit" onClick="Combineroll()" >Roll Combined</button>
+  <button style="background-color: #ED06C3""type="button" id="reset_second" onClick="dice_url_ts.value = '' ;reset()" >Reset</button><br>
+  <button type="button" id="btn_saveroll_1" onClick="Saveroll(1)" >Save</button>
+  <button style="background-color: #7DCD28" type="button" id="roll_save_1" onClick="Rollsave(1)" >Roll</button>
+  <label style="color: Black; font-size: 18px;" id="save_roll_1"></label><br>
+  <button type="button" id="btn_saveroll_2" onClick="Saveroll(2)" >Save</button>
+  <button style="background-color: #7DCD28" type="button" id="roll_save_2" onClick="Rollsave(2)" >Roll</button>
+  <label style="color: Black; font-size: 18px;" id="save_roll_2"></label><br> 
+  <button type="button" id="btn_saveroll_3" onClick="Saveroll(3)" >Save</button>
+  <button style="background-color: #7DCD28" type="button" id="roll_save_3" onClick="Rollsave(3)" >Roll</button>
+  <label style="color: Black; font-size: 18px;" id="save_roll_3"></label><br> 
+  <button type="button" id="btn_saveroll_4" onClick="Saveroll(4)" >Save</button>
+  <button style="background-color: #7DCD28" type="button" id="roll_save_4" onClick="Rollsave(4)" >Roll</button>
+  <label style="color: Black; font-size: 18px;" id="save_roll_4"></label><br> 
+  <button type="button" id="btn_saveroll_5" onClick="Saveroll(5)" >Save</button>
+  <button style="background-color: #7DCD28" type="button" id="roll_save_5" onClick="Rollsave(5)" >Roll</button>
+  <label style="color: Black; font-size: 18px;" id="save_roll_5"></label><br> 
+</div>
+<script>
+var dicenamein = document.getElementById("dice_name");
+var savewindow = '';
+var localsave = '';
+var modvalue = 0;
+var dice = '';
+var diceurl = '';
+var dicearr = [
+  [100,100,0],
+  [20,20,0],
+  [12,12,0],
+  [10,10,0],
+  [8,8,0],
+  [6,6,0],
+  [4,4,0],
+]; 
+function reset(val){
+ modvalue = 0;
+ dice = '';
+ diceurl = '';
+ dicearr = [
+  [100,100,0],
+  [20,20,0],
+  [12,12,0],
+  [10,10,0],
+  [8,8,0],
+  [6,6,0],
+  [4,4,0],
+];
+document.getElementById("dice_name").value='';
+document.getElementById("dice_roll").innerHTML='';
+document.getElementById("dice_modifier").innerHTML='';
+document.getElementById("dice_modifier_math").innerHTML='Values:&nbsp;&nbsp;';
+document.getElementById("dice_url_name").innerHTML='';
+document.getElementById("dice_url_dice").innerHTML='';
+document.getElementById("dice_url_mod").innerHTML='';  
+}
+dicenamein.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {
+        Nameroll(e);
+  }
+});
+
+function Nameroll(e) {
+   document.getElementById("dice_url_name").innerHTML=document.getElementById("dice_name").value;
+   document.getElementById("dice_url_name").innerHTML+=':'; 
+}
+function Dice(val){
+if (val == 100) {
+  dicearr[0][2] = Number(dicearr[0][2]) + 1;
+  dicearr[0][1] = + dicearr[0][2] + 'D100+' + dicearr[0][2] + 'D10';
+  dice = '';
+  for (let i = 0; i < dicearr.length; i++) {
+    if (dicearr[i][1] != dicearr[i][0]) {
+	  if (dice != '') {
+	      dice += '+';
+		}
+	  dice += dicearr[i][1];
+	}
+  }
+} else if (val == 20) {
+  dicearr[1][2] = Number(dicearr[1][2]) + 1;
+  dicearr[1][1] = + dicearr[1][2] + 'D20';
+  dice = '';
+  for (let i = 0; i < dicearr.length; i++) {
+    if (dicearr[i][1] != dicearr[i][0]) {
+	  if (dice != '') {
+	      dice += '+';
+		}
+	  dice += dicearr[i][1];
+	}
+  }  
+} else if (val == 12) {
+  dicearr[2][2] = Number(dicearr[2][2]) + 1;
+  dicearr[2][1] = + dicearr[2][2] + 'D12';
+  dice = '';
+  for (let i = 0; i < dicearr.length; i++) {
+    if (dicearr[i][1] != dicearr[i][0]) {
+	  if (dice != '') {
+	      dice += '+';
+		}
+	  dice += dicearr[i][1];
+	}
+  }  
+} else if (val == 10) {
+  dicearr[3][2] = Number(dicearr[3][2]) + 1;
+  dicearr[3][1] = + dicearr[3][2] + 'D10';
+  dice = '';
+  for (let i = 0; i < dicearr.length; i++) {
+    if (dicearr[i][1] != dicearr[i][0]) {
+	  if (dice != '') {
+	      dice += '+';
+		}
+	  dice += dicearr[i][1];
+	}
+  }  
+} else if (val == 8) {
+  dicearr[4][2] = Number(dicearr[4][2]) + 1;
+  dicearr[4][1] = + dicearr[4][2] + 'D8';
+  dice = '';
+  for (let i = 0; i < dicearr.length; i++) {
+    if (dicearr[i][1] != dicearr[i][0]) {
+	  if (dice != '') {
+	      dice += '+';
+		}
+	  dice += dicearr[i][1];
+	}
+  }  
+} else if (val == 6) {
+  dicearr[5][2] = Number(dicearr[5][2]) + 1;
+  dicearr[5][1] = + dicearr[5][2] + 'D6';
+  dice = '';
+  for (let i = 0; i < dicearr.length; i++) {
+    if (dicearr[i][1] != dicearr[i][0]) {
+	  if (dice != '') {
+	      dice += '+';
+		}
+	  dice += dicearr[i][1];
+	}
+  }  
+} else if (val == 4) {
+  dicearr[6][2] = Number(dicearr[6][2]) + 1;
+  dicearr[6][1] = + dicearr[6][2] + 'D4';
+  dice = '';
+  for (let i = 0; i < dicearr.length; i++) {
+    if (dicearr[i][1] != dicearr[i][0]) {
+	  if (dice != '') {
+	      dice += '+';
+		}
+	  dice += dicearr[i][1];
+	}
+  }  
+}
+document.getElementById("dice_roll").innerHTML=dice;
+document.getElementById("dice_url_dice").innerHTML=dice;
+}
+function Modify(val){
+modvalue+=val;
+modvalue = eval(modvalue);
+document.getElementById("dice_modifier").innerHTML=modvalue;
+document.getElementById("dice_modifier_math").innerHTML+=val;
+if (modvalue >= 0) {
+document.getElementById("dice_modifier").style.color="#62CD2F";
+document.getElementById("dice_url_mod").innerHTML='+' + modvalue;
+} else if (modvalue < 0) {
+document.getElementById("dice_modifier").style.color="#930C31";
+document.getElementById("dice_url_mod").innerHTML=modvalue;}
+}
+function Rollin(val){
+window.location='talespire://dice/' + document.getElementById("dice_url_name").innerHTML + document.getElementById("dice_url_dice").innerHTML + document.getElementById("dice_url_mod").innerHTML;
+}
+function Combinefirst(val){
+diceurl = document.getElementById("dice_url_ts").value;
+if (diceurl == '') {
+  diceurl = '';
+  diceurl += 'talespire://dice/' + document.getElementById("dice_url_name").innerHTML + document.getElementById("dice_url_dice").innerHTML + document.getElementById("dice_url_mod").innerHTML;
+  document.getElementById("dice_url_ts").value=diceurl;
+} else {
+  diceurl = '';
+  diceurl += '/' + document.getElementById("dice_url_name").innerHTML + document.getElementById("dice_url_dice").innerHTML + document.getElementById("dice_url_mod").innerHTML;
+  document.getElementById("dice_url_ts").value+=diceurl;
+}
+}
+function Combineroll(val){
+window.location=document.getElementById("dice_url_ts").value;
+}
+function Saveroll(val){
+//save = "roll" + val;
+savewindow = "save_roll_" + val;
+window.localStorage.setItem('roll' + val, document.getElementById("dice_url_ts").value);
+document.getElementById(savewindow).innerHTML=window.localStorage.getItem('roll' + val);
+}
+function Loadsaves(val){
+  for (let i = 1; i < 6 ; i++) {
+    savewindow = "save_roll_" + i;
+	localsave = '';
+	localsave = window.localStorage.getItem('roll' + i);
+	if (localsave) {
+	  document.getElementById(savewindow).innerHTML=localsave;
+	} else {
+	  document.getElementById(savewindow).innerHTML="No Save";
+	}	
+  }
+}
+function Rollsave(val) {
+localsave = '';
+localsave = window.localStorage.getItem('roll' + val);
+window.location=localsave;
+}
+</script>
+</body>
+</html>
